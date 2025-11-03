@@ -23,6 +23,6 @@
         "F": 0
     },
     "path": {
-        "input_csv": "data/student_scores.csv",
-        "output_csv": "data/processed_student_scores.csv",
+        "input_csv": "data/input.csv",
+        "output_folder": "data/folder",
     }
