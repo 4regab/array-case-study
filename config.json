@@ -1,0 +1,28 @@
+{
+    "weights": {
+        "quizzes": 0.3,
+        "midtersm": 0.3,
+        "final": 0.3,
+        "attendance": 0.1
+    },
+    "max_scores": {
+        "quiz1": 100,
+        "quiz2": 100,
+        "midterm": 100,
+        "final": 100,
+        "attendance": 100
+    },
+    "tresholds": {
+        "at_risk": 60
+    }
+    "grade_scale": {
+        "A": 90,
+        "B": 80,
+        "C": 70,
+        "D": 60,
+        "F": 0
+    },
+    "path": {
+        "input_csv": "data/student_scores.csv",
+        "output_csv": "data/processed_student_scores.csv",
+    }
