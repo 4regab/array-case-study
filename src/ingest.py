@@ -5,7 +5,6 @@ import os
 
 
 def find_csv_file(filename):
-    """Find CSV file in multiple possible locations."""
     # List of possible paths to check
     possible_paths = [
         filename,  # Current directory
@@ -24,7 +23,6 @@ def find_csv_file(filename):
 
 # Validate scores from 0 to 100 only, it will return a number or none
 def validate_score(value):
-    """Validate and convert score to float (0-100 range)."""
     # Empty value then it will return none
     if not value or value.strip() == '':
         return None
@@ -40,7 +38,6 @@ def validate_score(value):
 
 # Reads student data from CSV file
 def ingest(filename='input.csv'):
-    """Read and process student data from CSV file."""
     filepath = find_csv_file(filename)
 
     student_records = []  # Array to store student records
