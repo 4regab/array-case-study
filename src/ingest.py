@@ -71,7 +71,7 @@ def ingest(filename='input.csv'):
     # Return list of students
     return students
 
-#to view the output of this code 
+#to test and print the result.
 if __name__ == '__main__':
     print("✅ ingest.py is running correctly!")
     students = ingest()
