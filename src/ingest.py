@@ -5,19 +5,9 @@ import os
 
 
 def find_csv_file(filename):
-    # List of possible paths to check
-    possible_paths = [
-        filename,  # Current directory
-        os.path.join('data', filename),  # data/ folder (from root)
-        os.path.join('..', 'data', filename),
-    ]
-
-    # Check each path
-    for path in possible_paths:
-        if os.path.exists(path):
-            return path
-
-    # If not found in any location, raise an error
+    path = os.path.join('..', 'data', filename)
+    if os.path.exists(path):
+        return path
     raise FileNotFoundError(f"CSV file not found: {filename}")
 
 

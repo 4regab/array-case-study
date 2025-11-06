@@ -13,7 +13,7 @@ class StudentAnalytics:
                              for s in students if s['final_grade'] is not None]
 
     def basic_statistics(self, data: List[float]) -> Dict[str, float]:
-        """Calculate basic statistics for a dataset"""
+        # Calculate basic statistics for a dataset
         if not data:
             return {}
 
@@ -29,7 +29,7 @@ class StudentAnalytics:
         }
 
     def _calculate_mode(self, data: List[float]) -> float:
-        """Calculate mode of a dataset"""
+        # Calculate mode of a dataset
         if not data:
             return 0
         counter = Counter(data)
@@ -37,7 +37,7 @@ class StudentAnalytics:
         return mode
 
     def get_quiz_statistics(self) -> Dict[str, Dict[str, float]]:
-        """Get statistics for all quizzes"""
+        # Get statistics for all quizzes
         quiz_stats = {}
         for i in range(1, 6):
             quiz_key = f'quiz{i}'
@@ -48,11 +48,11 @@ class StudentAnalytics:
         return quiz_stats
 
     def get_final_grade_statistics(self) -> Dict[str, float]:
-        """Get statistics for final grades"""
+        # Get statistics for final grades
         return self.basic_statistics(self.final_grades)
 
     def get_component_statistics(self) -> Dict[str, Dict[str, float]]:
-        """Get statistics for all grade components"""
+        # Get statistics for all grade components
         components = ['quiz_avg', 'midterm', 'final', 'attendance_percent']
         component_stats = {}
 
@@ -65,7 +65,7 @@ class StudentAnalytics:
         return component_stats
 
     def calculate_percentiles(self) -> List[Dict[str, Any]]:
-        """Calculate percentiles for each student's final grade"""
+        # Calculate percentiles for each student's final grade"""
         if not self.final_grades:
             return []
 
@@ -94,7 +94,7 @@ class StudentAnalytics:
         return sorted(students_with_percentiles, key=lambda x: x['percentile'], reverse=True)
 
     def identify_outliers_iqr(self, data: List[float]) -> Tuple[List[float], Dict[str, float]]:
-        """Identify outliers using IQR method"""
+        # Identify outliers using IQR method
         if not data:
             return [], {}
 
@@ -119,7 +119,7 @@ class StudentAnalytics:
         return outliers, outlier_info
 
     def identify_outliers_zscore(self, data: List[float], threshold: float = 2.0) -> Tuple[List[float], Dict[str, float]]:
-        """Identify outliers using Z-score method"""
+        # Identify outliers using Z-score method
         if not data:
             return [], {}
 
@@ -143,7 +143,7 @@ class StudentAnalytics:
         return outliers, outlier_info
 
     def get_all_outliers(self) -> Dict[str, Any]:
-        """Identify outliers in final grades using both methods"""
+        # Identify outliers in final grades using both methods
         if not self.final_grades:
             return {}
 
@@ -193,7 +193,7 @@ class StudentAnalytics:
         }
 
     def get_section_comparison(self) -> Dict[str, Dict[str, Any]]:
-        """Compare statistics between sections"""
+        # Compare statistics between sections
         sections = {}
 
         for student in self.students:
@@ -216,7 +216,7 @@ class StudentAnalytics:
         return section_stats
 
     def _get_section_letter_grades(self, section: str) -> Dict[str, int]:
-        """Get letter grade distribution for a section"""
+        # Get letter grade distribution for a section
         section_students = [s for s in self.students if s.get(
             'section') == section and s.get('letter_grade')]
         letter_counts = Counter(student['letter_grade']
@@ -224,7 +224,7 @@ class StudentAnalytics:
         return dict(letter_counts)
 
     def generate_comprehensive_report(self) -> Dict[str, Any]:
-        """Generate a comprehensive analytics report"""
+        # Generate a comprehensive analytics report
         return {
             'final_grade_statistics': self.get_final_grade_statistics(),
             'quiz_statistics': self.get_quiz_statistics(),
@@ -243,7 +243,7 @@ class GradeVisualizer:
         self.colors = ['#2E86AB', '#A23B72', '#F18F01', '#C73E1D', '#3B1F2B']
 
     def plot_statistics_summary(self, analytics: StudentAnalytics, save_path: str = None):
-        """Plot summary statistics for final grades"""
+        # Plot summary statistics for final grades
         stats = analytics.get_final_grade_statistics()
 
         fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(15, 12))
@@ -303,7 +303,7 @@ class GradeVisualizer:
         plt.show()
 
     def plot_percentile_analysis(self, analytics: StudentAnalytics, save_path: str = None):
-        """Visualize percentile rankings"""
+        # Visualize percentile rankings
         students_with_percentiles = analytics.calculate_percentiles()
 
         percentiles = [s['percentile'] for s in students_with_percentiles]
@@ -334,7 +334,7 @@ class GradeVisualizer:
         plt.show()
 
     def plot_outlier_analysis(self, analytics: StudentAnalytics, save_path: str = None):
-        """Visualize outlier detection using different methods"""
+        # Visualize outlier detection using different methods
         outlier_data = analytics.get_all_outliers()
         final_grades = [s['final_grade']
                         for s in analytics.students if s['final_grade'] is not None]
@@ -390,7 +390,7 @@ class GradeVisualizer:
                     f"  {student['name']} (Section {student['section']}): {student['final_grade']:.1f}")
 
     def plot_quiz_statistics(self, analytics: StudentAnalytics, save_path: str = None):
-        """Plot detailed quiz statistics"""
+        # Plot detailed quiz statistics
         quiz_stats = analytics.get_quiz_statistics()
 
         quizzes = list(quiz_stats.keys())
@@ -435,7 +435,7 @@ class GradeVisualizer:
         plt.show()
 
     def plot_grade_distribution(self, students: List[Dict[str, Any]], save_path: str = None):
-        """Plot histogram of final grade distribution"""
+        # Plot histogram of final grade distribution
         final_grades = [s['final_grade']
                         for s in students if s['final_grade'] is not None]
 
@@ -462,7 +462,7 @@ class GradeVisualizer:
         plt.show()
 
     def plot_letter_grades(self, students: List[Dict[str, Any]], save_path: str = None):
-        """Plot bar chart of letter grade counts"""
+        # Plot bar chart of letter grade counts
         letter_grades = [s['letter_grade']
                          for s in students if s['letter_grade']]
         grade_counts = {}
@@ -492,7 +492,7 @@ class GradeVisualizer:
         plt.show()
 
     def generate_all_analytical_visualizations(self, students: List[Dict[str, Any]], output_folder: str = None):
-        """Generate all analytics visualizations"""
+        # Generate all analytics visualizations
         if output_folder and not os.path.exists(output_folder):
             os.makedirs(output_folder)
 
@@ -513,7 +513,7 @@ class GradeVisualizer:
         print("All analytical visualizations completed!")
 
     def _print_analytics_report(self, report: Dict[str, Any]):
-        """Print a text-based analytics report"""
+        # Print a text-based analytics report
         print("\n" + "="*60)
         print("COMPREHENSIVE ANALYTICS REPORT")
         print("="*60)
