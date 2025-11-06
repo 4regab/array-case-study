@@ -1,7 +1,7 @@
 {
     "weights": {
         "quizzes": 0.3,
-        "midtersm": 0.3,
+        "midterm": 0.3,
         "final": 0.3,
         "attendance": 0.1
     },
