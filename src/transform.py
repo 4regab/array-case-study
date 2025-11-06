@@ -1,7 +1,6 @@
 from typing import List, Dict, Any, Optional
 import json
 import os
-from ingest import ingest  
 
 def load_config(config_path: str = 'config.json') -> Dict[str, Any]:
     if os.path.exists(config_path):
@@ -54,7 +53,7 @@ def compute_final(quiz_avg: Optional[float], midterm: Optional[float], final: Op
 # Converts numeric grade to letter grade \
 def letter_grade(grade: Optional[float]) -> str:
     if grade is None:
-        return 'N/A'
+        return None
     scale = config['grade_scale']
     if grade >= scale['A']:
         return 'A'
@@ -86,13 +85,3 @@ def transform_students(student_records: List[Dict[str, Any]]) -> List[Dict[str, 
     
     return student_records
 
-# Main execution block
-if __name__ == '__main__':
-    # Ingest the data from the path in config
-    students = ingest(config['path']['input_csv'])
-    
-    # Transform the data
-    transformed_students = transform_students(students)
-    
-    # Print the transformed records
-    print(transformed_students)
