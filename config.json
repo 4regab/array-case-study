@@ -24,5 +24,6 @@
     },
     "path": {
         "input_csv": "data/input.csv",
-        "output_folder": "data/output",
+        "output_folder": "data/output"
     }
+}
