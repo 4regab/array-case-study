@@ -18,6 +18,37 @@ Build a clean data pipeline that ingests student records, processes them with ar
 - Implement NumPy version
 - Plot histograms or box plots
 
+## Prerequisites
+
+Before running the application, ensure you have the following installed:
+
+1. Python 3 or higher  
+2. pip (Python package manager)
+
+You also need the following Python libraries:
+
+To install dependencies, use:
+```bash
+pip install numpy matplotlib
+```
+
+---
+
+## How to Run
+
+1. Clone this repository:
+```bash
+git clone https://github.com/4regab/array-case-study.git
+cd array-case-study
+```
+
+2. Run the script:
+```bash
+cd src
+python reports.py
+```
+
+
 ## Program Structure
 
 ```
