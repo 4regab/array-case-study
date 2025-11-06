@@ -1,0 +1,27 @@
+================================================================================
+INDIVIDUAL STUDENT REPORT
+================================================================================
+Student ID: 2024-00210
+Name: Charlie Villanueva
+Section: 1
+
+QUIZ SCORES:
+  Quiz 1: 91.00
+  Quiz 2: 100.00
+  Quiz 3: 89.00
+  Quiz 4: 92.00
+  Quiz 5: 89.00
+  Quiz Average: 92.20
+
+EXAM SCORES:
+  Midterm: 95.00
+  Final: 94.00
+
+ATTENDANCE:
+  Attendance: Missing
+
+FINAL GRADE:
+  Numeric: 94.36
+  Letter: A
+
+================================================================================

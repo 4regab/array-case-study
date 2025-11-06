@@ -1,0 +1,27 @@
+================================================================================
+INDIVIDUAL STUDENT REPORT
+================================================================================
+Student ID: 2024-00324
+Name: Isabella Brooke
+Section: 2
+
+QUIZ SCORES:
+  Quiz 1: 90.00
+  Quiz 2: 95.00
+  Quiz 3: 90.00
+  Quiz 4: 88.00
+  Quiz 5: 92.00
+  Quiz Average: 91.00
+
+EXAM SCORES:
+  Midterm: 92.00
+  Final: 94.00
+
+ATTENDANCE:
+  Attendance: Missing
+
+FINAL GRADE:
+  Numeric: 90.60
+  Letter: A
+
+================================================================================

@@ -1,0 +1,27 @@
+================================================================================
+INDIVIDUAL STUDENT REPORT
+================================================================================
+Student ID: 2024-02367
+Name: Wade Jones
+Section: 2
+
+QUIZ SCORES:
+  Quiz 1: 88.00
+  Quiz 2: 66.00
+  Quiz 3: 90.00
+  Quiz 4: 75.00
+  Quiz 5: 66.00
+  Quiz Average: 77.00
+
+EXAM SCORES:
+  Midterm: 91.00
+  Final: 88.00
+
+ATTENDANCE:
+  Attendance: Missing
+
+FINAL GRADE:
+  Numeric: 84.80
+  Letter: B
+
+================================================================================

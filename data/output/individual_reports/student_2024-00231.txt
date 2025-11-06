@@ -1,0 +1,27 @@
+================================================================================
+INDIVIDUAL STUDENT REPORT
+================================================================================
+Student ID: 2024-00231
+Name: James Gabriele Torzar
+Section: 1
+
+QUIZ SCORES:
+  Quiz 1: 100.00
+  Quiz 2: 75.00
+  Quiz 3: 88.00
+  Quiz 4: 83.00
+  Quiz 5: 89.00
+  Quiz Average: 87.00
+
+EXAM SCORES:
+  Midterm: 94.00
+  Final: 95.00
+
+ATTENDANCE:
+  Attendance: Missing
+
+FINAL GRADE:
+  Numeric: 92.80
+  Letter: A
+
+================================================================================

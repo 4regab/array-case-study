@@ -1,0 +1,27 @@
+================================================================================
+INDIVIDUAL STUDENT REPORT
+================================================================================
+Student ID: 2024-00566
+Name: Leonardo DaVinci
+Section: 1
+
+QUIZ SCORES:
+  Quiz 1: 100.00
+  Quiz 2: 100.00
+  Quiz 3: 100.00
+  Quiz 4: 100.00
+  Quiz 5: 100.00
+  Quiz Average: 100.00
+
+EXAM SCORES:
+  Midterm: 100.00
+  Final: 100.00
+
+ATTENDANCE:
+  Attendance: Missing
+
+FINAL GRADE:
+  Numeric: 100.00
+  Letter: A
+
+================================================================================

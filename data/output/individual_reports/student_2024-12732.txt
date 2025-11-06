@@ -1,0 +1,27 @@
+================================================================================
+INDIVIDUAL STUDENT REPORT
+================================================================================
+Student ID: 2024-12732
+Name: Lancelot Shih
+Section: 1
+
+QUIZ SCORES:
+  Quiz 1: 88.00
+  Quiz 2: 92.00
+  Quiz 3: 91.00
+  Quiz 4: 75.00
+  Quiz 5: 100.00
+  Quiz Average: 89.20
+
+EXAM SCORES:
+  Midterm: 95.00
+  Final: 92.00
+
+ATTENDANCE:
+  Attendance: Missing
+
+FINAL GRADE:
+  Numeric: 91.86
+  Letter: A
+
+================================================================================
