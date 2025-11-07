@@ -12,7 +12,7 @@
         "final": 100,
         "attendance": 100
     },
-    "tresholds": {
+    "thresholds": {
         "at_risk": 60
     },
     "grade_scale": {
