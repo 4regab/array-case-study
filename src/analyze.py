@@ -514,9 +514,7 @@ class GradeVisualizer:
 
     def _print_analytics_report(self, report: Dict[str, Any]):
         # Print a text-based analytics report
-        print("\n" + "="*60)
-        print("COMPREHENSIVE ANALYTICS REPORT")
-        print("="*60)
+        print("ANALYTICS")
 
         print(f"\nTotal Students: {report['total_students']}")
         print(

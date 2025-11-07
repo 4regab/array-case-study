@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 class ReportGenerator:
-    """Generates various text-based reports for student data analysis"""
+    # Generates various text-based reports for student data analysis
 
     def __init__(self, students: List[Dict[str, Any]], config: Dict[str, Any]):
         self.students = students
@@ -13,7 +13,7 @@ class ReportGenerator:
         self.timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     def generate_summary_report(self) -> str:
-        """Generate overall summary report"""
+        # Generate overall summary report
         total_students = len(self.students)
         students_with_grades = [
             s for s in self.students if s.get('final_grade') is not None]
@@ -36,9 +36,7 @@ class ReportGenerator:
             s for s in students_with_grades if s['final_grade'] < at_risk_threshold]
 
         report = []
-        report.append("=" * 80)
         report.append("STUDENT PERFORMANCE SUMMARY REPORT")
-        report.append("=" * 80)
         report.append(f"Generated: {self.timestamp}")
         report.append("")
 
@@ -72,7 +70,7 @@ class ReportGenerator:
         return "\n".join(report)
 
     def generate_student_report(self, student: Dict[str, Any]) -> str:
-        """Generate individual student report"""
+        # Generate individual student report
         report = []
         report.append("=" * 80)
         report.append("INDIVIDUAL STUDENT REPORT")
@@ -127,7 +125,7 @@ class ReportGenerator:
         return "\n".join(report)
 
     def generate_section_report(self, section: str) -> str:
-        """Generate report for a specific section"""
+        # Generate report for a specific section
         section_students = [
             s for s in self.students if s.get('section') == section]
         students_with_grades = [
@@ -184,7 +182,7 @@ class ReportGenerator:
         return "\n".join(report)
 
     def generate_at_risk_report(self) -> str:
-        """Generate detailed report for at-risk students"""
+        # Generate detailed report for at-risk students
         at_risk_threshold = self.config.get(
             'thresholds', {}).get('at_risk', 60)
         students_with_grades = [
@@ -236,7 +234,7 @@ class ReportGenerator:
         return "\n".join(report)
 
     def generate_top_performers_report(self, top_n: int = 10) -> str:
-        """Generate report for top performing students"""
+        # Generate report for top performing students
         students_with_grades = [
             s for s in self.students if s.get('final_grade') is not None]
         top_students = sorted(
@@ -262,7 +260,7 @@ class ReportGenerator:
         return "\n".join(report)
 
     def export_to_json(self, output_path: str):
-        """Export processed student data to JSON"""
+        # Export processed student data to JSON
         data = {
             'metadata': {
                 'generated': self.timestamp,
@@ -276,7 +274,7 @@ class ReportGenerator:
             json.dump(data, f, indent=2, ensure_ascii=False)
 
     def export_section_csv(self, section: str, output_path: str):
-        """Export section data to CSV file"""
+        # Export section data to CSV file
         import csv
 
         section_students = [
@@ -310,7 +308,7 @@ class ReportGenerator:
                 writer.writerow(row)
 
     def export_at_risk_csv(self, output_path: str):
-        """Export at-risk students to CSV file"""
+        # Export at-risk students to CSV file
         import csv
 
         at_risk_threshold = self.config.get(
@@ -347,7 +345,7 @@ class ReportGenerator:
                 writer.writerow(row)
 
     def save_all_reports(self, output_folder: str):
-        """Export CSV files and print summary to console"""
+        # Export CSV files and print summary to console
         if not os.path.exists(output_folder):
             os.makedirs(output_folder)
 
