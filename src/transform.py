@@ -2,11 +2,18 @@ from typing import List, Dict, Any, Optional
 import json
 import pandas as pd
 import numpy as np
+import os
 
 
 # Load configuration from config.json file in the root folder
 def load_config(config_path: str = '../config.json') -> Dict[str, Any]:
-    with open(config_path, 'r') as f:
+    # Get the directory where this script is located
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    # Build path relative to script location
+    full_path = os.path.join(script_dir, config_path)
+    full_path = os.path.normpath(full_path)  # Normalize the path
+
+    with open(full_path, 'r') as f:
         return json.load(f)
 
 # SELECT: Filter students based on conditions (WHERE clause)

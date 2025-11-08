@@ -101,7 +101,9 @@ with st.sidebar:
             at_risk_students).to_csv(index=False)
 
         # Save to output folder
-        output_dir_sidebar = os.path.join('..', 'data', 'output')
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        output_dir_sidebar = os.path.normpath(
+            os.path.join(script_dir, '..', 'data', 'output'))
         os.makedirs(output_dir_sidebar, exist_ok=True)
         with open(os.path.join(output_dir_sidebar, 'at_risk_students.csv'), 'w') as f:
             f.write(at_risk_csv)
@@ -142,7 +144,8 @@ with st.sidebar:
 st.title("Academic Analytics Lite")
 
 # Create output directory
-output_dir = os.path.join('..', 'data', 'output')
+script_dir = os.path.dirname(os.path.abspath(__file__))
+output_dir = os.path.normpath(os.path.join(script_dir, '..', 'data', 'output'))
 os.makedirs(output_dir, exist_ok=True)
 
 # Summary Report

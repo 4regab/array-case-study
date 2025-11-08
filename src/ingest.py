@@ -5,9 +5,14 @@ import os
 
 
 def read_csv(filename='input.csv'):
-    filepath = os.path.join('..', 'data', filename)
+    # Get the directory where this script is located
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    # Build path relative to script location
+    filepath = os.path.join(script_dir, '..', 'data', filename)
+    filepath = os.path.normpath(filepath)  # Normalize the path
+
     if not os.path.exists(filepath):
-        raise FileNotFoundError(f"CSV file not found: {filename}")
+        raise FileNotFoundError(f"CSV file not found: {filepath}")
     students = []
 
     with open(filepath, 'r', encoding='utf-8') as file:
