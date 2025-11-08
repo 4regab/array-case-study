@@ -1,2 +1,2 @@
-student_id,last_name,first_name,section,quiz_avg,midterm,final,attendance,final_grade,letter_grade
-2024-03264,Cuinto,Jasmine,2,45.6,51.0,83.0,,58.88,F
+Student ID,Last Name,First Name,Section,Quiz 1,Quiz 2,Quiz 3,Quiz 4,Quiz 5,Midterm,Final,Attendance %,Final Grade,Letter
+2024-03264,Cuinto,Jasmine,2,34.0,53.0,46.0,40.0,55.0,51.0,83.0,50.0,58.88,F

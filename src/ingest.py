@@ -1,74 +1,44 @@
 import csv
 import os
 
-# Handles input csv file path detection (works from data folder)
+# Read student data from CSV file
 
 
-def find_csv_file(filename):
-    path = os.path.join('..', 'data', filename)
-    if os.path.exists(path):
-        return path
-    raise FileNotFoundError(f"CSV file not found: {filename}")
+def read_csv(filename='input.csv'):
+    filepath = os.path.join('..', 'data', filename)
+    if not os.path.exists(filepath):
+        raise FileNotFoundError(f"CSV file not found: {filename}")
+    students = []
 
-
-# Validate scores from 0 to 100 only, it will return a number or none
-def validate_score(value):
-    # Empty value then it will return none
-    if not value or value.strip() == '':
-        return None
-    # Convert score into float if valid, else will return None
-    try:
-        score = float(value)
-        if 0 <= score <= 100:
-            return score
-        return None
-    except ValueError:
-        return None
-
-
-# Reads student data from CSV file
-def ingest(filename='input.csv'):
-    filepath = find_csv_file(filename)
-
-    student_records = []  # Array to store student records
-
-    # To open and read CSV file
     with open(filepath, 'r', encoding='utf-8') as file:
         reader = csv.DictReader(file)
         if reader.fieldnames is None:
             raise ValueError("CSV file is empty")
 
-        # Process each row
         for row in reader:
             student = {}
-
-            # Process each column
             for key, value in row.items():
-                key = key.strip()  # This removes spaces from column name
-
-                # Name and Section, and trim spaces
+                key = key.strip()
                 if key in ['last_name', 'first_name', 'section']:
                     student[key] = value.strip()
-
-                # Scores - validate 0-100
-                elif key in [
-                    'quiz1', 'quiz2', 'quiz3', 'quiz4', 'quiz5',
-                    'midterm', 'final', 'attendance_percent'
-                ]:
+                elif key in ['quiz1', 'quiz2', 'quiz3', 'quiz4', 'quiz5',
+                             'midterm', 'final', 'attendance_percent']:
                     student[key] = validate_score(value)
-
-                # The Student ID - keep as string and trim spaces
                 elif key == 'student_id':
                     student[key] = value.strip() if value else None
+            students.append(student)
 
-            # Add student to list
-            student_records.append(student)
+    return students
 
-    # Return list of students
-    return student_records
+# Validate score is between 0-100, return None if invalid
 
 
-# print the result.
-if __name__ == '__main__':
-    students = ingest()
-    print(students)
+def validate_score(value):
+    if not value or value.strip() == '':
+        return None
+
+    try:
+        score = float(value)
+        return score if 0 <= score <= 100 else None
+    except ValueError:
+        return None

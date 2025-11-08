@@ -1,0 +1,27 @@
+OVERVIEW:
+  Total Students: 19
+  Students with Complete Data: 19
+  Students with Missing Data: 0
+
+GRADE STATISTICS:
+  Average Final Grade: 87.55
+  Median Final Grade: 89.16
+  Highest Grade: 100.00
+  Lowest Grade: 58.88
+  Pass Rate (C or better): 94.7%
+
+STUDENTS WITH GRADE A BY SECTION:
+  Section 1: 5 students
+  Section 2: 3 students
+
+PERFORMANCE CATEGORIES:
+ Top Performers (Grade A): 8 students
+  At-Risk (Below 60): 1 students
+
+SECTION BREAKDOWN:
+  Section 1: 9 students, Avg: 90.12
+  Section 2: 10 students, Avg: 85.25
+
+AT-RISK STUDENTS (Below 60):
+  Total: 1 students
+    - Jasmine Cuinto (ID: 2024-03264): 58.88

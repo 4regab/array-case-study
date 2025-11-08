@@ -1,93 +1,146 @@
 from typing import List, Dict, Any, Optional
 import json
-import os
+import pandas as pd
+import numpy as np
 
 
+# Load configuration from config.json file in the root folder
 def load_config(config_path: str = '../config.json') -> Dict[str, Any]:
     with open(config_path, 'r') as f:
         return json.load(f)
 
-
-config = load_config()
-
-# Computes the weighted final grade
-
-
-def compute_final(quiz_avg: Optional[float], midterm: Optional[float], final: Optional[float], attendance: Optional[float]) -> Optional[float]:
-    if quiz_avg is None or midterm is None or final is None or attendance is None:
-        return None
-    weights = config['weights']
-    return (quiz_avg * weights['quizzes'] +
-            midterm * weights['midterm'] +
-            final * weights['final'] +
-            attendance * weights['attendance'])
-
-# Converts numeric grade to letter grade \
+# SELECT: Filter students based on conditions (WHERE clause)
+# SELECT operation - Filter students based on a condition function.
+# Example: select_students(students, lambda s: s['final_grade'] > 90)
 
 
-def letter_grade(grade: Optional[float]) -> str:
-    if grade is None:
-        return None
-    scale = config['grade_scale']
-    if grade >= scale['A']:
-        return 'A'
-    elif grade >= scale['B']:
-        return 'B'
-    elif grade >= scale['C']:
-        return 'C'
-    elif grade >= scale['D']:
-        return 'D'
-    else:
-        return 'F'
+def select_students(students: List[Dict[str, Any]], condition: callable) -> List[Dict[str, Any]]:
+    if not students:
+        return []
+    df = pd.DataFrame(students)
+    mask = df.apply(condition, axis=1)
+    return df[mask].to_dict('records')
 
 
+# PROJECT: Select specific columns/fields from students
+# PROJECT operation - Select only specific fields from student records.
+# Example: project_students(students, ['student_id', 'first_name', 'final_grade'])
+def project_students(students: List[Dict[str, Any]], fields: List[str]) -> List[Dict[str, Any]]:
+    if not students:
+        return []
+    df = pd.DataFrame(students)
+    available_fields = [f for f in fields if f in df.columns]
+    return df[available_fields].to_dict('records')
+
+
+# INSERT: Add new student(s) to the array
+# INSERT operation - Add a new student to the array and recalculate grades.
+def insert_student(students: List[Dict[str, Any]], new_student: Dict[str, Any]) -> List[Dict[str, Any]]:
+    students_copy = students.copy()
+    students_copy.append(new_student)
+    return transform_students(students_copy)
+
+
+# INSERT operation (bulk) - Add multiple students at once using pandas concat.
+def insert_students_bulk(students: List[Dict[str, Any]], new_students: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    if not new_students:
+        return students
+
+    df_existing = pd.DataFrame(students) if students else pd.DataFrame()
+    df_new = pd.DataFrame(new_students)
+    df_combined = pd.concat([df_existing, df_new], ignore_index=True)
+    return transform_students(df_combined.to_dict('records'))
+
+
+# DELETE: Remove student(s) from the array
+# DELETE operation - Remove a student by ID using pandas filtering.
+def delete_student(students: List[Dict[str, Any]], student_id: str) -> List[Dict[str, Any]]:
+    if not students:
+        return []
+    df = pd.DataFrame(students)
+    return df[df['student_id'] != student_id].to_dict('records')
+
+
+# Add computed fields to student records
 def transform_students(student_records: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    if not student_records:
+        return []
+
+    config = load_config()
+    weights = config['weights']
+    scale = config['grade_scale']
+
+    # Calculate quiz average and final grades for each student
     for student in student_records:
-        # Compute quiz_avg: Average of quiz1 to quiz5,
-        quizzes = [student.get(f'quiz{i}') for i in range(
-            1, 6) if student.get(f'quiz{i}') is not None]
-        student['quiz_avg'] = sum(quizzes) / len(quizzes) if quizzes else None
+        # Calculate quiz average
+        quiz_scores = [student.get(f'quiz{i}') for i in range(1, 6)]
+        valid_quizzes = [q for q in quiz_scores if q is not None]
+        student['quiz_avg'] = sum(valid_quizzes) / \
+            len(valid_quizzes) if valid_quizzes else None
 
-        quiz_avg = student['quiz_avg']
+        # Calculate final grade
+        quiz_avg = student.get('quiz_avg')
         midterm = student.get('midterm')
-        final = student.get('final')
+        final_exam = student.get('final')
         attendance = student.get('attendance_percent')
-        student['final_grade'] = compute_final(
-            quiz_avg, midterm, final, attendance)
 
-        # Compute letter_grade based on final_grade
-        student['letter_grade'] = letter_grade(student['final_grade'])
+        if None in [quiz_avg, midterm, final_exam, attendance]:
+            student['final_grade'] = None
+            student['letter_grade'] = 'N/A'
+        else:
+            # Calculate weighted final grade
+            final_grade = (
+                quiz_avg * weights['quizzes'] +
+                midterm * weights['midterm'] +
+                final_exam * weights['final'] +
+                attendance * weights['attendance']
+            )
+            student['final_grade'] = final_grade
+
+            # Determine letter grade
+            if final_grade >= scale['A']:
+                student['letter_grade'] = 'A'
+            elif final_grade >= scale['B']:
+                student['letter_grade'] = 'B'
+            elif final_grade >= scale['C']:
+                student['letter_grade'] = 'C'
+            elif final_grade >= scale['D']:
+                student['letter_grade'] = 'D'
+            else:
+                student['letter_grade'] = 'F'
 
     return student_records
 
 
-def select(students: List[Dict[str, Any]], condition) -> List[Dict[str, Any]]:
-    # Filter students based on condition function
-    return [s for s in students if condition(s)]
-
-
-def project(students: List[Dict[str, Any]], fields: List[str]) -> List[Dict[str, Any]]:
-   # Extract only specified fields from students
-    return [{field: s.get(field) for field in fields} for s in students]
-
-
+# Sort students by a field using pandas
 def sort_students(students: List[Dict[str, Any]], key: str, reverse: bool = False) -> List[Dict[str, Any]]:
-    # Sort students by a field in-place
-    students.sort(key=lambda s: s.get(key) if s.get(key)
-                  is not None else -1, reverse=reverse)
-    return students
+    if not students:
+        return []
+    df = pd.DataFrame(students)
+    df_sorted = df.sort_values(
+        by=key, ascending=not reverse, na_position='last')
+    return df_sorted.to_dict('records')
 
 
-def insert_student(students: List[Dict[str, Any]], student: Dict[str, Any]) -> List[Dict[str, Any]]:
-    # Insert a new student record
-    students.append(student)
-    return students
+# Get top N students by final grade using pandas
+def get_top_performers(students: List[Dict[str, Any]], top_n: int = 10) -> List[Dict[str, Any]]:
+    if not students:
+        return []
+    df = pd.DataFrame(students)
+    df_with_grades = df[df['final_grade'].notna()]
+    df_sorted = df_with_grades.sort_values(by='final_grade', ascending=False)
+    return df_sorted.head(top_n).to_dict('records')
 
 
-def delete_student(students: List[Dict[str, Any]], student_id: str) -> List[Dict[str, Any]]:
-    # Delete student by student_id in-place
-    for i, s in enumerate(students):
-        if s.get('student_id') == student_id:
-            students.pop(i)
-            break
-    return students
+# Get students below threshold using pandas
+def get_at_risk_students(students: List[Dict[str, Any]], threshold: Optional[float] = None) -> List[Dict[str, Any]]:
+    if not students:
+        return []
+    if threshold is None:
+        threshold = load_config().get('thresholds', {}).get('at_risk', 60)
+
+    df = pd.DataFrame(students)
+    at_risk_df = df[(df['final_grade'].notna()) &
+                    (df['final_grade'] < threshold)]
+    at_risk_sorted = at_risk_df.sort_values(by='final_grade', ascending=True)
+    return at_risk_sorted.to_dict('records')
