@@ -1,16 +1,14 @@
 import streamlit as st  # Web app framework
 import pandas as pd  # DataFrame for displaying student data tables
 import matplotlib.pyplot as plt  # Plotting library (used by chart functions)
-from io import StringIO  # Convert uploaded CSV string to file-like object
-import csv  # Parse CSV data from uploaded files
 import os  # File system operations
 
 # Import existing modules
-from ingest import read_csv, validate_score  # Load and validate student data
+from ingest import read_csv  # Load and validate student data
 # Data transformation and filtering
 from transform import (transform_students, load_config, get_top_performers, get_at_risk_students, sort_students,
                        select_students, project_students,
-                       insert_student, insert_students_bulk, delete_student)
+                       insert_student, delete_student)
 from analyze import (StudentAnalytics, create_grade_distribution_chart, create_letter_grades_chart,
                      create_quiz_performance_chart, create_boxplot_chart,
                      create_section_comparison_chart, create_percentiles_chart,
@@ -21,30 +19,11 @@ from reports import ReportGenerator  # Generate text summary reports
 # Page config
 st.set_page_config(page_title="Academic Analytics Lite", layout="wide")
 
-# Initialize session state and load default data from input.csv
-if 'students' not in st.session_state:
-    st.session_state.students = transform_students(read_csv())
+# Initialize session state - load config first, then students
 if 'config' not in st.session_state:
     st.session_state.config = load_config()
-
-
-def csv_to_students(csv_content):
-    students = []
-    reader = csv.DictReader(StringIO(csv_content))
-    for row in reader:
-        student = {}
-        for key, value in row.items():
-            key = key.strip()
-            if key in ['last_name', 'first_name', 'section']:
-                student[key] = value.strip()
-            elif key in ['quiz1', 'quiz2', 'quiz3', 'quiz4', 'quiz5',
-                         'midterm', 'final', 'attendance_percent']:
-                student[key] = validate_score(value)
-            elif key == 'student_id':
-                student[key] = value.strip() if value else None
-        students.append(student)
-    # Use insert_students_bulk for array operation
-    return insert_students_bulk([], students)
+if 'students' not in st.session_state:
+    st.session_state.students = transform_students(read_csv())
 
 
 def students_to_dataframe(students):
@@ -71,7 +50,7 @@ def students_to_dataframe(students):
     return pd.DataFrame(df_data)
 
 
-# Sidebar with config, upload, and export
+# Sidebar with config , and export
 with st.sidebar:
     st.header("Config")
     weights = st.session_state.config['weights']
@@ -81,18 +60,14 @@ with st.sidebar:
         f"**Weights:** Quiz {weights['quizzes']*100:.0f}% | Mid {weights['midterm']*100:.0f}% | Final {weights['final']*100:.0f}% | Attendance {weights['attendance']*100:.0f}%")
     st.caption(f"**At-Risk:** Below {at_risk_threshold} (Grade F)")
 
-    # File Upload
-    st.subheader("Upload CSV")
-    uploaded_file = st.file_uploader(
-        "Upload CSV", type=['csv'], label_visibility="collapsed")
-    if uploaded_file is not None:
-        csv_content = uploaded_file.getvalue().decode('utf-8')
-        st.session_state.students = csv_to_students(csv_content)
-        st.success(f"Loaded {len(st.session_state.students)} students!")
-        st.rerun()
-
     # Export Section
     st.subheader("Export Data")
+
+    # Create output directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    output_dir_sidebar = os.path.normpath(
+        os.path.join(script_dir, '..', 'data', 'output'))
+    os.makedirs(output_dir_sidebar, exist_ok=True)
 
     # At-risk students export
     at_risk_students = get_at_risk_students(st.session_state.students, 60.0)
@@ -101,10 +76,6 @@ with st.sidebar:
             at_risk_students).to_csv(index=False)
 
         # Save to output folder
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        output_dir_sidebar = os.path.normpath(
-            os.path.join(script_dir, '..', 'data', 'output'))
-        os.makedirs(output_dir_sidebar, exist_ok=True)
         with open(os.path.join(output_dir_sidebar, 'at_risk_students.csv'), 'w') as f:
             f.write(at_risk_csv)
 
