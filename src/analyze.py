@@ -212,7 +212,7 @@ def create_percentiles_chart(students: List[Dict[str, Any]], figsize=(4, 3)):
     return fig
 
 
-def create_outliers_chart(students: List[Dict[str, Any]], figsize=(5, 3)):
+def create_outliers_chart(students: List[Dict[str, Any]], figsize=(4, 3)):
     # Create a box plot chart to show outliers using the IQR (Interquartile Range) method
     grades = np.array([s['final_grade']
                       for s in students if s.get('final_grade') is not None])
