@@ -54,10 +54,13 @@ def students_to_dataframe(students):
 with st.sidebar:
     st.header("Config")
     weights = st.session_state.config['weights']
+    grade_scale = st.session_state.config['grade_scale']
     at_risk_threshold = st.session_state.config.get(
         'thresholds', {}).get('at_risk', 60)
     st.caption(
         f"**Weights:** Quiz {weights['quizzes']*100:.0f}% | Mid {weights['midterm']*100:.0f}% | Final {weights['final']*100:.0f}% | Attendance {weights['attendance']*100:.0f}%")
+    st.caption(
+        f"**Grade Scale:** A: {grade_scale['A']}+ | B: {grade_scale['B']}+ | C: {grade_scale['C']}+ | D: {grade_scale['D']}+")
     st.caption(f"**At-Risk:** Below {at_risk_threshold} (Grade F)")
 
     # Export Section
