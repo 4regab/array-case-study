@@ -1,27 +1,35 @@
 OVERVIEW:
-  Total Students: 19
-  Students with Complete Data: 19
+  Total Students: 99
+  Students with Complete Data: 99
   Students with Missing Data: 0
 
 GRADE STATISTICS:
-  Average Final Grade: 87.55
-  Median Final Grade: 89.16
+  Average Final Grade: 86.40
+  Median Final Grade: 88.50
   Highest Grade: 100.00
-  Lowest Grade: 58.88
-  Pass Rate (C or better): 94.7%
+  Lowest Grade: 46.94
+  Pass Rate (C or better): 90.9%
 
 STUDENTS WITH GRADE A BY SECTION:
-  Section 1: 5 students
-  Section 2: 3 students
+  Section 1: 21 students
+  Section 2: 18 students
 
 PERFORMANCE CATEGORIES:
- Top Performers (Grade A): 8 students
-  At-Risk (Below 60): 1 students
+ Top Performers (Grade A): 39 students
+  At-Risk (Below 60): 9 students
 
 SECTION BREAKDOWN:
-  Section 1: 9 students, Avg: 90.12
-  Section 2: 10 students, Avg: 85.25
+  Section 1: 50 students, Avg: 87.12
+  Section 2: 49 students, Avg: 85.66
 
 AT-RISK STUDENTS (Below 60):
-  Total: 1 students
-    - Jasmine Cuinto (ID: 2024-03264): 58.88
+  Total: 9 students
+    - Jasmine Cuinto (ID: 2024-03264): 46.94
+    - Six Seven (ID: 2024-09813): 48.90
+    - Christopher Allen (ID: 2024-20001): 51.60
+    - Charlie Villanueva (ID: 2024-00210): 52.22
+    - Joshua Cooper (ID: 2024-20003): 54.46
+    - James Gabriele Torzar (ID: 2024-00231): 55.54
+    - Hannah Bell (ID: 2024-20002): 55.82
+    - Bayani Javier Pablo (ID: 2024-23578): 57.06
+    - Grace Dean (ID: 2024-20004): 58.62
