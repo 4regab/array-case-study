@@ -16,20 +16,6 @@ A clean data pipeline that ingests student records, processes them with array-ba
 7. **Implement NumPy version** - All analytics use NumPy array operations
 8. **Plot histograms or box plots** - Multiple chart types including histograms, box plots, bar charts
 
-
-## Data Model
-
-The system uses arrays of dictionaries to represent student records.
-
-**CSV Columns**:
-- `student_id`, `last_name`, `first_name`, `section`
-- `quiz1` to `quiz5`, `midterm`, `final`, `attendance_percent`
-
-**Parsing Rules**:
-- Missing numeric fields default to `None`
-- Trim spaces in names and sections
-- Scores are validated to be from 0 to 100 only
-
 ## Prerequisites
 
 Before running the application, ensure you have the following installed:
@@ -56,23 +42,31 @@ streamlit run main.py
 
 The application will open in your default web browser at `http://localhost:8501`
 
-## Program Structure
+## Complexity Discussion
 
-```
-array-case-study/
-├── data/
-│   ├── input.csv           # Sample student data
-│   └── output/             # Generated reports and csv files
-├── src/
-│   ├── ingest.py          # CSV reading and validation
-│   ├── transform.py       # Grade computation and transformations
-│   ├── analyze.py         # Statistical analysis and visualizations
-│   ├── reports.py         # Report generation and exports
-│   └── main.py            # Main Streamlit application
-├── config.json            # Configuration (weights, thresholds, paths)
-├── requirements.txt       # Python dependencies
-└── README.md             # This file
-```
+This project uses several Python libraries to handle data work, analysis, and charts:
+
+**NumPy** helps with fast math operations on student data. The project uses NumPy arrays to calculate averages, medians, and percentiles quickly. It finds unusual scores using the IQR method and processes all student records at once without slow loops. Using NumPy instead of regular Python lists makes the program much faster, especially with many students. Tasks that need multiple loops in basic Python are done in one step with NumPy.
+
+**Pandas** makes filtering and selecting data easier, groups data by section for comparisons, and handles missing scores cleanly. Pandas DataFrames make complex data changes simpler while working well with the array-based design.The main data uses arrays of dictionaries to show basic data structures. 
+
+**Matplotlib** creates all the charts in the program. It makes grade distribution charts, box plots that show unusual scores, bar charts for letter grades and quiz results, and comparison charts for different sections. Each chart is saved as a PNG file for reports and presentations. The charts turn numbers into easy-to-read pictures.
+
+**Streamlit** turns the program into a web app that anyone can use in their browser. It shows charts that update right away, has forms to add or delete student records, and displays new charts without reloading the page. It also lets users download reports and CSV files. It makes building web apps simple without needing to learn complex web tools.
+
+
+## Data Model
+
+The system uses arrays of dictionaries to represent student records.
+
+**CSV Columns**:
+- `student_id`, `last_name`, `first_name`, `section`
+- `quiz1` to `quiz5`, `midterm`, `final`, `attendance_percent`
+
+**Parsing Rules**:
+- Missing numeric fields default to `None`
+- Trim spaces in names and sections
+- Scores are validated to be from 0 to 100 only
 
 ## Configuration
 
@@ -108,3 +102,22 @@ The application generates the following reports in the `data/output/` folder:
 2. **Section Reports** (`section_X.csv`) - Individual CSV files per section
 3. **At-Risk Students** (`at_risk_students.csv`) - Students below the threshold
 4. **Visualizations** - Multiple PNG charts (grade distribution, percentiles, outliers, etc.)
+
+## Program Structure
+
+```
+array-case-study/
+├── data/
+│   ├── input.csv           # Sample student data
+│   └── output/             # Generated reports and csv files
+├── src/
+│   ├── ingest.py          # CSV reading and validation
+│   ├── transform.py       # Grade computation and transformations
+│   ├── analyze.py         # Statistical analysis and visualizations
+│   ├── reports.py         # Report generation and exports
+│   └── main.py            # Main Streamlit application
+├── config.json            # Configuration (weights, thresholds, paths)
+├── requirements.txt       # Python dependencies
+└── README.md             # This file
+```
+
