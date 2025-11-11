@@ -1,6 +1,5 @@
 import streamlit as st  # Web app framework for creating interactive dashboards
 import pandas as pd  # DataFrame library for displaying student data in tables
-import matplotlib.pyplot as plt  # Plotting library (used by chart functions)
 import os  # File system operations for creating folders and saving files
 
 # Import existing modules from our project
